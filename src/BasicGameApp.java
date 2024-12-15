@@ -38,11 +38,23 @@ public class BasicGameApp implements Runnable {
    public JPanel panel;
    
 	public BufferStrategy bufferStrategy;
-	public Image astroPic;
+	public Image aquariumBackgroundPic;
+	public Image Fish1;
+	public Image Fish2;
+	public Image Fish3;
+	public Image Fish4;
+	public Image Fish5;
+	public Image Fish6;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
-	private Astronaut astro;
+	private Fish fish1;
+	private Fish fish2;
+	private Fish fish3;
+	private Fish fish4;
+	private Fish fish5;
+	private Fish fish6;
+
 
 
    // Main method definition
@@ -63,8 +75,21 @@ public class BasicGameApp implements Runnable {
        
       //variable and objects
       //create (construct) the objects needed for the game and load up 
-		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
-		astro = new Astronaut(10,100);
+		Fish1 = Toolkit.getDefaultToolkit().getImage("Fish1.png"); //load the picture
+		Fish2 = Toolkit.getDefaultToolkit().getImage("Fish2.png"); //load the picture
+		Fish3 = Toolkit.getDefaultToolkit().getImage("Fish3.png"); //load the picture
+		Fish4 = Toolkit.getDefaultToolkit().getImage("Fish4.png"); //load the picture
+		Fish5 = Toolkit.getDefaultToolkit().getImage("Fish5.png"); //load the picture
+		Fish6 = Toolkit.getDefaultToolkit().getImage("Fish6.png"); //load the picture
+
+		aquariumBackgroundPic = Toolkit.getDefaultToolkit().getImage("aquariumBackgroundPib.png"); //load the picture
+		fish1 = new Fish (10,100);
+		fish2 = new Fish(30,100);
+		fish3 = new Fish(50,100);
+		fish4 = new Fish(70,100);
+		fish5 = new Fish(90,100);
+		fish6 = new Fish(10,300);
+
 
 
 	}// BasicGameApp()
@@ -89,11 +114,31 @@ public class BasicGameApp implements Runnable {
 	}
 
 
-	public void moveThings()
-	{
-      //calls the move( ) code in the objects
-		astro.move();
+	public void moveThings() {
+		collisions();
+		fish1.bounce();
+		fish2.wrap();
 
+	}
+
+	public void collisions(){
+      //ADD EXPLANATION HERE
+		if(fish1.rec.intersects(fish2.rec) && fish1.isCrashing == false && fish1.isAlive && fish2.isAlive){
+			fish1.dx = -fish1.dx;
+			fish1.dy = -fish1.dy;
+			fish2.dx = -fish1.dx;
+			fish2.dy = -fish2.dy;
+			fish2.isAlive = false;
+			fish1.width = fish1.width + 30;
+			fish1.height = fish1.height + 30;
+			fish2.dx = fish2.dx + 30;
+			fish2.dy = fish2.dy + 30;
+			fish1.isCrashing = true;
+		}
+
+		if(!fish1.rec.intersects(fish2.rec)){
+			fish1.isCrashing = false;
+		}
 	}
 	
    //Pauses or sleeps the computer for the amount specified in milliseconds
@@ -142,9 +187,19 @@ public class BasicGameApp implements Runnable {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 
-      //draw the image of the astronaut
-		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
+		//draw the background image
+		g.drawImage(aquariumBackgroundPic, 0, 0, WIDTH, HEIGHT, null);
+      	//draw the image of the astronaut
+		g.drawImage(Fish1, fish1.xpos, fish1.ypos, fish1.width, fish1.height, null);
+		g.drawImage(Fish2, fish2.xpos, fish2.ypos, fish2.width, fish2.height, null);
+		g.drawImage(Fish3, fish3.xpos, fish3.ypos, fish3.width, fish3.height, null);
+		g.drawImage(Fish4, fish4.xpos, fish4.ypos, fish4.width, fish4.height, null);
+		g.drawImage(Fish5, fish5.xpos, fish5.ypos, fish5.width, fish5.height, null);
+		g.drawImage(Fish6, fish6.xpos, fish6.ypos, fish6.width, fish6.height, null);
 
+		if(fish2.isAlive == true) {
+			g.drawImage(Fish2, fish2.xpos, fish2.ypos, fish2.width, fish2.height, null);
+		}
 		g.dispose();
 
 		bufferStrategy.show();
