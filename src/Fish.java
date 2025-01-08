@@ -35,14 +35,17 @@ public class Fish {
         width = 60;
         height = 60;
         isAlive = true;
- 
+        rec = new Rectangle(xpos, ypos, width, height);
+
+
     } // constructor
 
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
     public void move() {
         xpos = xpos + dx;
         ypos = ypos + dy;
- 
+        rec = new Rectangle(xpos, ypos, width, height);
+
     }
 
     public void bounce(){
@@ -51,7 +54,7 @@ public class Fish {
         if(xpos>950){
             dx = -dx;
         }
-        //bounce of the West Wall
+        //bounce oef the West Wall
         if(xpos<0){
             dx=-dx;
         }
