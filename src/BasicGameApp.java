@@ -39,12 +39,12 @@ public class BasicGameApp implements Runnable {
    
 	public BufferStrategy bufferStrategy;
 	public Image aquariumBackgroundPic;
-	public Image Fish1;
-	public Image Fish2;
-	public Image Fish3;
-	public Image Fish4;
-	public Image Fish5;
-	public Image Fish6;
+	public Image Fish1Pic;
+	public Image Fish2Pic;
+	public Image Fish3Pic;
+	public Image Fish4Pic;
+	public Image Fish5Pic;
+	public Image sharkPic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
@@ -53,7 +53,7 @@ public class BasicGameApp implements Runnable {
 	private Fish fish3;
 	private Fish fish4;
 	private Fish fish5;
-	private Fish fish6;
+	private Fish shark;
 
 
 
@@ -75,20 +75,20 @@ public class BasicGameApp implements Runnable {
        
       //variable and objects
       //create (construct) the objects needed for the game and load up 
-		Fish1 = Toolkit.getDefaultToolkit().getImage("Fish1.png"); //load the picture
-		Fish2 = Toolkit.getDefaultToolkit().getImage("Fish2.png"); //load the picture
-		Fish3 = Toolkit.getDefaultToolkit().getImage("Fish3.png"); //load the picture
-		Fish4 = Toolkit.getDefaultToolkit().getImage("Fish4.png"); //load the picture
-		Fish5 = Toolkit.getDefaultToolkit().getImage("Fish5.png"); //load the picture
-		Fish6 = Toolkit.getDefaultToolkit().getImage("Fish6.png"); //load the picture
+		Fish1Pic = Toolkit.getDefaultToolkit().getImage("Fish1.png"); //load the picture
+		Fish2Pic = Toolkit.getDefaultToolkit().getImage("Fish2.png"); //load the picture
+		Fish3Pic = Toolkit.getDefaultToolkit().getImage("Fish3.png"); //load the picture
+		Fish4Pic = Toolkit.getDefaultToolkit().getImage("Fish4.png"); //load the picture
+		Fish5Pic = Toolkit.getDefaultToolkit().getImage("Fish5.png"); //load the picture
+		sharkPic = Toolkit.getDefaultToolkit().getImage("sharkPic.png"); //load the picture
+		aquariumBackgroundPic = Toolkit.getDefaultToolkit().getImage("aquariumBackgroundPic.png"); //load the picture
 
-		aquariumBackgroundPic = Toolkit.getDefaultToolkit().getImage("aquariumBackgroundPib.png"); //load the picture
-		fish1 = new Fish (10,100);
-		fish2 = new Fish(30,100);
-		fish3 = new Fish(50,100);
-		fish4 = new Fish(70,100);
-		fish5 = new Fish(90,100);
-		fish6 = new Fish(10,300);
+		fish1 = new Fish (100,100);
+		fish2 = new Fish(200,200);
+		fish3 = new Fish(300,300);
+		fish4 = new Fish(400,400);
+		fish5 = new Fish(500,500);
+		shark = new Fish(800,100);
 
 
 
@@ -109,7 +109,7 @@ public class BasicGameApp implements Runnable {
 
          moveThings();  //move all the game objects
          render();  // paint the graphics
-         pause(20); // sleep for 10 ms
+         pause(10); // sleep for 10 ms
 		}
 	}
 
@@ -117,27 +117,95 @@ public class BasicGameApp implements Runnable {
 	public void moveThings() {
 		collisions();
 		fish1.bounce();
-		fish2.wrap();
+		fish2.bounce();
+		fish3.bounce();
+		fish4.bounce();
+		fish5.bounce();
+		shark.wrap();
 
 	}
 
 	public void collisions(){
       //ADD EXPLANATION HERE
-		if(fish1.rec.intersects(fish2.rec) && fish1.isCrashing == false && fish1.isAlive && fish2.isAlive){
-			fish1.dx = -fish1.dx;
+		//fish1 crashing
+		if(shark.rec.intersects(fish1.rec) && shark.isCrashing == false && shark.isAlive && fish1.isAlive){
+			shark.dx = -shark.dx;
+			shark.dy = -shark.dy;
+			fish1.dx = -shark.dx;
 			fish1.dy = -fish1.dy;
-			fish2.dx = -fish1.dx;
-			fish2.dy = -fish2.dy;
-			fish2.isAlive = false;
-			fish1.width = fish1.width + 30;
-			fish1.height = fish1.height + 30;
-			fish2.dx = fish2.dx + 30;
-			fish2.dy = fish2.dy + 30;
-			fish1.isCrashing = true;
+			fish1.isAlive = false;
+			fish1.dx = fish1.dx + 1;
+			fish1.dy = fish1.dy + 1;
+			shark.isCrashing = true;
 		}
 
-		if(!fish1.rec.intersects(fish2.rec)){
-			fish1.isCrashing = false;
+		if(!shark.rec.intersects(fish1.rec)){
+			shark.isCrashing = false;
+		}
+
+		//fish2 crashing
+		if(shark.rec.intersects(fish2.rec) && shark.isCrashing == false && shark.isAlive && fish2.isAlive){
+			shark.dx = -shark.dx;
+			shark.dy = -shark.dy;
+			fish2.dx = -shark.dx;
+			fish2.dy = -fish2.dy;
+			fish2.isAlive = false;
+			fish2.dx = fish2.dx + 1;
+			fish2.dy = fish2.dy + 1;
+			shark.isCrashing = true;
+		}
+
+		if(!shark.rec.intersects(fish2.rec)){
+			shark.isCrashing = false;
+		}
+
+		//fish3 crashing
+		if(shark.rec.intersects(fish3.rec) && shark.isCrashing == false && shark.isAlive && fish3.isAlive){
+			shark.dx = -shark.dx;
+			shark.dy = -shark.dy;
+			fish3.dx = -shark.dx;
+			fish3.dy = -fish3.dy;
+			fish3.isAlive = false;
+			fish3.dx = fish3.dx + 1;
+			fish3.dy = fish3.dy + 1;
+			shark.isCrashing = true;
+		}
+
+		if(!shark.rec.intersects(fish3.rec)){
+			shark.isCrashing = false;
+		}
+
+		//fish4 crashing
+		if(shark.rec.intersects(fish4.rec) && shark.isCrashing == false && shark.isAlive && fish4.isAlive){
+			shark.dx = -shark.dx;
+			shark.dy = -shark.dy;
+			fish4.dx = -shark.dx;
+			fish4.dy = -fish4.dy;
+			fish4.isAlive = false;
+			fish4.dx = fish4.dx + 1;
+			fish4.dy = fish4.dy + 1;
+			shark.isCrashing = true;
+		}
+
+		if(!shark.rec.intersects(fish4.rec)){
+			shark.isCrashing = false;
+		}
+
+		//fish 5 crashing
+
+		if(shark.rec.intersects(fish5.rec) && shark.isCrashing == false && shark.isAlive && fish5.isAlive){
+			shark.dx = -shark.dx;
+			shark.dy = -shark.dy;
+			fish5.dx = -shark.dx;
+			fish5.dy = -fish5.dy;
+			fish5.isAlive = false;
+			fish5.dx = fish5.dx + 1;
+			fish5.dy = fish5.dy + 1;
+			shark.isCrashing = true;
+		}
+
+		if(!shark.rec.intersects(fish5.rec)){
+			shark.isCrashing = false;
 		}
 	}
 	
@@ -187,18 +255,20 @@ public class BasicGameApp implements Runnable {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 
-		//draw the background image
+		//background image
 		g.drawImage(aquariumBackgroundPic, 0, 0, WIDTH, HEIGHT, null);
-      	//draw the image of the astronaut
-		g.drawImage(Fish1, fish1.xpos, fish1.ypos, fish1.width, fish1.height, null);
-		g.drawImage(Fish2, fish2.xpos, fish2.ypos, fish2.width, fish2.height, null);
-		g.drawImage(Fish3, fish3.xpos, fish3.ypos, fish3.width, fish3.height, null);
-		g.drawImage(Fish4, fish4.xpos, fish4.ypos, fish4.width, fish4.height, null);
-		g.drawImage(Fish5, fish5.xpos, fish5.ypos, fish5.width, fish5.height, null);
-		g.drawImage(Fish6, fish6.xpos, fish6.ypos, fish6.width, fish6.height, null);
+      	//image of fishes
+		g.drawImage(Fish1Pic, fish1.xpos, fish1.ypos, fish1.width, fish1.height, null);
+		g.drawImage(Fish2Pic, fish2.xpos, fish2.ypos, fish2.width, fish2.height, null);
+		g.drawImage(Fish3Pic, fish3.xpos, fish3.ypos, fish3.width, fish3.height, null);
+		g.drawImage(Fish4Pic, fish4.xpos, fish4.ypos, fish4.width, fish4.height, null);
+		g.drawImage(Fish5Pic, fish5.xpos, fish5.ypos, fish5.width, fish5.height, null);
+		g.drawImage(sharkPic, shark.xpos, shark.ypos, 175, 175, null);
+		g.drawImage(aquariumBackgroundPic, 1000, 800, null);
+
 
 		if(fish2.isAlive == true) {
-			g.drawImage(Fish2, fish2.xpos, fish2.ypos, fish2.width, fish2.height, null);
+			g.drawImage(Fish2Pic, fish2.xpos, fish2.ypos, fish2.width, fish2.height, null);
 		}
 		g.dispose();
 
